@@ -53,7 +53,7 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   ///
   Uri _videoPage(String videoId, int? width, int? height) {
     var w = width != null ? '${width}px' : "100%";
-    var h = height != null ? '${width}px' : "100%";
+    var h = height != null ? '${height}px' : "100%";
     final html = '''
             <html>
               <head>
