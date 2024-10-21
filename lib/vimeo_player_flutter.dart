@@ -13,9 +13,13 @@ import 'package:webview_flutter/webview_flutter.dart';
 ///
 ///
 class VimeoPlayer extends StatefulWidget {
+  final int? width;
+  final int? height;
   const VimeoPlayer({
     Key? key,
     required this.videoId,
+    this.width,
+    this.height,
   }) : super(key: key);
 
   final String videoId;
@@ -30,7 +34,7 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   @override
   void initState() {
     _controller
-      ..loadRequest(_videoPage(widget.videoId))
+      ..loadRequest(_videoPage(widget.videoId, widget.width, widget.height))
       ..setJavaScriptMode(JavaScriptMode.unrestricted);
     super.initState();
   }
@@ -47,7 +51,9 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
   ///
   ///
   ///
-  Uri _videoPage(String videoId) {
+  Uri _videoPage(String videoId, int? width, int? height) {
+    var w = width != null ? '${width}px' : "100%";
+    var h = height != null ? '${width}px' : "100%";
     final html = '''
             <html>
               <head>
@@ -64,8 +70,8 @@ class _VimeoPlayerState extends State<VimeoPlayer> {
              </head>
              <body>
                 <iframe 
-                src="https://player.vimeo.com/video/$videoId?loop=0&autoplay=0" 
-                width="100%" height="100%" frameborder="0" allow="fullscreen" 
+                src="https://player.vimeo.com/video/$videoId?loop=0&autoplay=1" 
+                width="$w" height="$h" frameborder="0" allow="fullscreen" 
                 allowfullscreen></iframe>
              </body>
             </html>
